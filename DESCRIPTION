@@ -7,8 +7,9 @@ Authors@R: c(person("Aaron", "Lun", role = c("aut", "cre"),
     "Griffiths", role="ctb"), person("Davis", "McCarthy",
     role="ctb"))
 Maintainer: Aaron Lun <alun@wehi.edu.au>
-Depends: R (>= 3.5), BiocParallel, SingleCellExperiment
-Imports: S4Vectors, Matrix, methods, utils, stats, edgeR, Rcpp, rhdf5
+Depends: R (>= 3.5), BiocParallel, SingleCellExperiment, methods
+Imports: S4Vectors, Matrix, methods, utils, stats, edgeR, Rcpp, rhdf5,
+    SummarizedExperiment
 Suggests: testthat, beachmat, knitr, BiocStyle, rmarkdown, HDF5Array
 biocViews: SingleCell, Sequencing, RNASeq, GeneExpression, 
     Transcriptomics, DataImport, Coverage
@@ -22,4 +23,4 @@ NeedsCompilation: yes
 VignetteBuilder: knitr
 LinkingTo: Rcpp, beachmat, Rhdf5lib
 SystemRequirements: C++11
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

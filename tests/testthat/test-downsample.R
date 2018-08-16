@@ -223,3 +223,46 @@ test_that("downsampling from the reads compares correctly to downsampleMatrix", 
     Y <- downsampleReads(out.file, prop=0.55, bycol=TRUE)
     expect_equal(Y, Z)
 })
+
+
+test_that("downsampleCounts works for NULL target", {
+    
+    out <- downsampleCounts(se)
+    
+    expect_true(all(colSums(assay(out, "counts")) == min(colSums(assay(se, "counts")))))
+    
+})
+
+
+test_that("downsampleCounts works for integer targets", {
+    
+    out <- downsampleCounts(se, 10L)
+    expect_true(all(colSums(assay(out)) == 10L))
+    
+    out <- downsampleCounts(se, c(10L, 20L))
+    expect_true(all(colSums(assay(out)) == c(10L, 20L)))
+    
+    
+})
+
+test_that("downsampleCounts works for numeric targets", {
+    
+    # Single value
+    out <- downsampleCounts(se, 0.5)
+    colSums(assay(out)) / colSums(assay(se))
+    
+    # The number of samples is not a multiple of the target length
+    out <- downsampleCounts(se, c(0.5, 0.75, 0.6))
+    colSums(assay(out)) / colSums(assay(se)) # Note: cannot always be an exact ratio
+    
+})
+
+test_that("downsampleCounts works for character targets", {
+    
+    # Expected usage
+    out <- downsampleCounts(se, "A")
+    
+    # More than one sample is not allowed
+    expect_error(downsampleCounts(se, c("A", "B")))
+    
+})
