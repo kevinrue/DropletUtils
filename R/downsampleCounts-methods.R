@@ -1,6 +1,3 @@
-#' @rdname downsampleCounts-methods
-#' @aliases downsampleCounts,SummarizedExperiment,NULL-method
-#'
 #' @importFrom Matrix colSums
 #' @importFrom SummarizedExperiment assay
 setMethod("downsampleCounts", c("SummarizedExperiment", "missing"),
@@ -12,9 +9,6 @@ setMethod("downsampleCounts", c("SummarizedExperiment", "missing"),
               downsampleCounts(x, libsize, assay_name)
           })
 
-#' @rdname downsampleCounts-methods
-#' @aliases downsampleCounts,SummarizedExperiment,character-method
-#'
 #' @importFrom SummarizedExperiment assay
 setMethod("downsampleCounts", c("SummarizedExperiment", "character"),
           function(x, target=NULL, assay_name="counts")
@@ -27,9 +21,6 @@ setMethod("downsampleCounts", c("SummarizedExperiment", "character"),
               downsampleCounts(x, libsize, assay_name)
           })
 
-#' @rdname downsampleCounts-methods
-#' @aliases downsampleCounts,SummarizedExperiment,integer-method
-#'
 #' @importFrom Matrix colSums
 setMethod("downsampleCounts", c("SummarizedExperiment", "integer"),
           function(x, target, assay_name="counts")
@@ -49,17 +40,6 @@ setMethod("downsampleCounts", c("SummarizedExperiment", "numeric"),
               .downsampleCounts(x, target, assay_name)
           })
 
-#' Downsample counts (INTERNAL)
-#'
-#' @param x A \code{\link{SummarizedExperiment}} object.
-#' @param ratios A numeric vector of downsampling ratios, recycled as necessary.
-#' @param assay_name The name of an assay in \code{assayNames(x)} that contains count data.
-#'
-#' @rdname INTERNAL_downsampleCounts
-#'
-#' @return The input \code{SummarizedExperiment} with the \code{assay_name} assay substituted by downsampled count data.
-#'
-#' @seealso \code{\link{downsampleCounts}}
 .downsampleCounts <- function(x, ratios, assay_name="counts") {
     
     # Warn and cap ratios if greater than 1
