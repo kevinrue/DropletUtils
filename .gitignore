@@ -4,3 +4,7 @@ vignettes/*.md
 vignettes/*.html
 *.swp
 .Rproj.user
+renv/
+renv.lock
+.Rprofile
+.Rbuildignore
