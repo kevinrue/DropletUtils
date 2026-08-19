@@ -7,15 +7,12 @@ package: DropletUtils
 title: Read 10X Counts
 tagline: import single-cell counts from 10X files
 description: >
-  Runs the canonical DESeq2 workflow on a raw count matrix: size factor and
-  dispersion estimation, negative-binomial GLM fitting and a Wald test for
-  one pairwise contrast, with optional independent pre-filtering and
-  log2-fold-change shrinkage. Produces the per-gene results table, the
-  median-of-ratios normalized counts, and an MA plot.
+  Creates a SingleCellExperiment from the CellRanger output files for
+  10X Genomics data.
 version: "1.0.0"
 license: MIT
-script: scripts/deseq2-differential-expression.R
-depends: [apeglm, ashr]   # runtime deps beyond the host package (shrinkage)
+script: scripts/read-10x-counts.R
+depends: [DropletUtils]
 
 inputs:
   - name: counts
