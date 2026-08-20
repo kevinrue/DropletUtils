@@ -12,11 +12,11 @@ description: >
 version: "1.0.0"
 license: MIT
 script: scripts/read-10x-counts.R
-depends: [DropletUtils]
+depends: [LoomExperiment]
 
 inputs:
-  - name: counts
-    format: tsv
+  - name: mtx_file
+    format: mtx
     label: Raw count matrix
     help: >
       Tab-separated matrix of raw (un-normalized) integer read counts:
