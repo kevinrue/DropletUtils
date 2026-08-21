@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## runJob(readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name"))
 
 params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 

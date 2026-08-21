@@ -26,7 +26,7 @@ inputs:
     help: >
       Single-column tab-separated file containing the barcode sequences
       represented by columns of the count matrix, with one barcode per line.
-  - name: genes_files
+  - name: genes_file
     format: tsv
     label: Feature annotations
     help: >
