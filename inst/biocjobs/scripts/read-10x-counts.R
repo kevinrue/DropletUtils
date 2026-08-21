@@ -22,14 +22,14 @@ stopifnot(file.exists(params$mtx_file))
 stopifnot(file.exists(params$barcodes_file))
 stopifnot(file.exists(params$genes_file))
 # no check on params$sample_name?
-stopifnot(dir.exists(params$outfile))
+stopifnot(!file.exists(params$outfile))
 
 dropletutils_input_dir <- file.path(tmpdir, "tenx_input_dir")
 dir.create(dropletutils_input_dir)
 
-file.symlink(from = params$mtx_file, to = file.path(dropletutils_input_dir))
-file.symlink(from = params$barcodes_file, to = file.path(dropletutils_input_dir))
-file.symlink(from = params$genes_file, to = file.path(dropletutils_input_dir))
+invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_input_dir)))
+invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_input_dir)))
+invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_input_dir)))
 
 ## ---- task ---------------------------------------------------------------
 
