@@ -19,95 +19,41 @@ inputs:
     format: mtx
     label: Raw count matrix
     help: >
-      Tab-separated matrix of raw (un-normalized) integer read counts:
-      first column gene identifiers, one further column per sample.
-      Do not supply TPM/FPKM or otherwise normalized values.
-  - name: coldata
+      Matrix of integer UMI counts in Matrix Market File Format.
+  - name: barcodes_file
     format: tsv
-    label: Sample table
+    label: Cell barcodes
     help: >
-      Tab-separated sample annotation: first column sample identifiers
-      matching the count matrix column names, one further column per
-      covariate (e.g. condition, batch). Every variable used in the design
-      formula must be a column of this table.
+      Single-column tab-separated file containing the barcode sequences
+      represented by columns of the count matrix, with one barcode per line.
+  - name: genes_files
+    format: tsv
+    label: Feature annotations
+    help: >
+      Tab-separated file describing the features represented by rows of the
+      count matrix. Contains the feature ID, feature name, and feature type,
+      such as Gene Expression.
+      
 
 outputs:
-  - name: results
-    format: tsv
-    label: Differential expression results
+  - name: outfile
+    format: loom
+    label: Loom file
     help: >
-      Per-gene table (baseMean, log2FoldChange, lfcSE, pvalue, padj, and
-      stat for unshrunken results), ordered by adjusted p-value.
-  - name: normalized_counts
-    format: tsv
-    label: Normalized counts
-    help: Median-of-ratios normalized counts for all retained genes.
-  - name: ma_plot
-    format: pdf
-    label: MA plot
+      Loom file exported from a SingleCellLoomExperiment object.
 
+# params <- list(
+#     sample_name = "sample_name",
+# )
 options:
-  - name: design
-    type: string
-    default: "~ condition"
-    label: Design formula
-    help: >
-      R formula over sample table columns. Control for covariates by
-      putting them first; the tested variable comes last
-      (e.g. "~ batch + condition").
-    allow_chars: ["~"]
-  - name: contrast_factor
+  - name: sample_name
     type: string
     required: true
-    label: Factor to test
-    help: Sample table column containing the tested condition.
-  - name: contrast_numerator
-    type: string
-    required: true
-    label: Treatment level (numerator)
-    help: Level of the tested factor whose effect is reported.
-  - name: contrast_denominator
-    type: string
-    required: true
-    label: Reference level (denominator)
-    help: Baseline level the treatment is compared against.
-  - name: alpha
-    type: float
-    default: 0.1
-    min: 0
-    max: 1
-    label: FDR threshold (alpha)
+    label: Sample name
     help: >
-      Significance cutoff used to optimize independent filtering. Set it
-      to the adjusted p-value threshold you will actually use.
-  - name: shrinkage
-    type: choice
-    choices: [apeglm, ashr, normal, none]
-    default: apeglm
-    label: Log2 fold change shrinkage
-    help: >
-      Shrinkage estimator applied to the reported log2 fold changes;
-      "apeglm" is the recommended default, "none" reports maximum
-      likelihood estimates.
-  - name: prefilter
-    type: boolean
-    default: true
-    label: Pre-filter low-count genes
-    help: Remove genes with insufficient counts before testing.
-  - name: prefilter_min_count
-    type: integer
-    default: 10
-    min: 1
-    label: Pre-filter minimum count
-  - name: prefilter_min_samples
-    type: integer
-    default: 0
-    min: 0
-    label: Pre-filter minimum samples
-    help: >
-      Keep genes with at least the minimum count in at least this many
-      samples. 0 (default) means automatic: the size of the smallest
-      group of the tested factor.
+      Sample name stored in the cell metadata.
+      Particularly useful to track the sample of origin for each cell
+      after merging multiple datasets.
 
 resources:
   cpus: 1
@@ -115,26 +61,17 @@ resources:
   disk_gb: 10
 
 citations:
-  - doi: 10.1186/s13059-014-0550-8   # Love, Huber, Anders (2014) DESeq2
-  - doi: 10.1093/bioinformatics/bty895   # Zhu, Ibrahim, Love (2018) apeglm
+  - doi: 10.18129/B9.bioc.DropletUtils   # Bioconductor landing page
 
 tests:
   - inputs:
-      counts: test-data/counts.tsv
-      coldata: test-data/coldata.tsv
+      mtx_file: test-data/matrix.mtx
+      barcodes_file: test-data/barcodes.tsv
+      genes_files: test-data/genes.tsv
     options:
-      design: "~ condition"
-      contrast_factor: condition
-      contrast_numerator: treated
-      contrast_denominator: control
-      shrinkage: apeglm
+      sample_name: "sample_name"
     outputs:
-      results:
-        file: test-data/results.tsv
+      outfile:
+        file: test-data/scle.loom
         compare: sim_size
         delta: 3000
-      normalized_counts:
-        file: test-data/normalized_counts.tsv
-        compare: sim_size
-        delta: 3000
-      ma_plot: {}
