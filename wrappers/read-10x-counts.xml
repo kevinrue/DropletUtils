@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tool id="biocjobs_dropletutils_read_10x_counts" name="Read 10X Counts" version="1.31.2+biocjobs1.0.0" profile="23.0" license="MIT">
+  <description>import single-cell counts from 10X files</description>
+  <xrefs>
+    <xref type="bioconductor">DropletUtils</xref>
+  </xrefs>
+  <requirements>
+    <requirement type="package" version="1.31.2">bioconductor-dropletutils</requirement>
+    <requirement type="package" version="0.99.0">bioconductor-biocjobs</requirement>
+  </requirements>
+  <command detect_errors="exit_code"><![CDATA[
+Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")'
+--mtx_file '$mtx_file'
+--barcodes_file '$barcodes_file'
+--genes_file '$genes_file'
+--sample_name '$sample_name'
+--outfile '$outfile'
+]]></command>
+  <inputs>
+    <param name="mtx_file" type="data" format="mtx" label="Raw count matrix" help="Matrix of integer UMI counts in Matrix Market File Format.&#10;"/>
+    <param name="barcodes_file" type="data" format="tabular" label="Cell barcodes" help="Single-column tab-separated file containing the barcode sequences represented by columns of the count matrix, with one barcode per line.&#10;"/>
+    <param name="genes_file" type="data" format="tabular" label="Feature annotations" help="Tab-separated file describing the features represented by rows of the count matrix. Contains the feature ID, feature name, and feature type, such as Gene Expression.&#10;"/>
+    <param name="sample_name" type="text" value="" label="Sample name" help="Sample name stored in the cell metadata. Particularly useful to track the sample of origin for each cell after merging multiple datasets.&#10;">
+      <validator type="empty_field"/>
+    </param>
+  </inputs>
+  <outputs>
+    <data name="outfile" format="loom" label="${tool.name} on ${on_string}: Loom file"/>
+  </outputs>
+  <tests>
+    <test>
+      <param name="mtx_file" value="matrix.mtx" ftype="mtx"/>
+      <param name="barcodes_file" value="barcodes.tsv" ftype="tabular"/>
+      <param name="sample_name" value="sample_name"/>
+      <output name="outfile" file="scle.loom" compare="sim_size" delta="3000"/>
+    </test>
+  </tests>
+  <help><![CDATA[
+**Read 10X Counts**
+
+Creates a SingleCellExperiment from the CellRanger output files for 10X Genomics data.
+
+
+**Inputs**
+
+- *Raw count matrix* (mtx): Matrix of integer UMI counts in Matrix Market File Format.
+
+- *Cell barcodes* (tsv): Single-column tab-separated file containing the barcode sequences represented by columns of the count matrix, with one barcode per line.
+
+- *Feature annotations* (tsv): Tab-separated file describing the features represented by rows of the count matrix. Contains the feature ID, feature name, and feature type, such as Gene Expression.
+
+
+**Outputs**
+
+- *Loom file* (loom): Loom file exported from a SingleCellLoomExperiment object.
+
+
+This tool was generated automatically by BiocJobs from the job specification `read-10x-counts` shipped in Bioconductor package **DropletUtils**.
+]]></help>
+  <citations>
+    <citation type="doi">10.18129/B9.bioc.DropletUtils</citation>
+  </citations>
+</tool>
