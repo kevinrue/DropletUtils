@@ -3,24 +3,23 @@
 // regenerate with: Rscript -e 'BiocJobs::biocjobsCLI()' nextflow <pkg> read-10x-counts
 
 process READ_10X_COUNTS {
-    tag "read-10x-counts"
+    tag "${meta.id}"
     container 'bioconductor/bioconductor_docker:RELEASE_3_23'
     cpus 1
     memory '4 GB'
     disk '10 GB'
 
     input:
-    // Raw count matrix (mtx)
-    path mtx_file
-    // Cell barcodes (tsv)
-    path barcodes_file
-    // Feature annotations (tsv)
-    path genes_file
+    // meta: map identifying the unit of work; meta.id names the tag
+    // mtx_file: Raw count matrix (mtx)
+    // barcodes_file: Cell barcodes (tsv)
+    // genes_file: Feature annotations (tsv)
+    tuple val(meta), path(mtx_file), path(barcodes_file), path(genes_file)
     // Sample name (string; required)
     val sample_name
 
     output:
-    path 'outfile.loom', emit: outfile
+    tuple val(meta), path('outfile.loom'), emit: outfile
 
     script:
     """
