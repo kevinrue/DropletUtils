@@ -4,7 +4,7 @@
 
 process READ_10X_COUNTS {
     tag "${meta.id}"
-    container 'bioconductor/bioconductor_docker:RELEASE_3_23'
+    container 'ghcr.io/kevinrue/dropletutils:devel'
     cpus 1
     memory '4 GB'
     disk '10 GB'

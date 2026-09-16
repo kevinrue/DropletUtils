@@ -14,6 +14,8 @@ license: MIT
 script: scripts/read-10x-counts.R
 depends: [LoomExperiment]
 
+container: ghcr.io/kevinrue/dropletutils:devel
+
 inputs:
   - name: mtx_file
     format: mtx
