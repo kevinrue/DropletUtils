@@ -5,7 +5,10 @@ path <- commandArgs(trailingOnly = TRUE)[1L]
 options(repos = BiocManager::repositories(), Ncpus = parallel::detectCores())
 
 install.packages("remotes")
-remotes::install_github("almahmoud/BiocJobs", upgrade = "never")
+## The archive download is not subject to the unauthenticated GitHub API rate
+## limit that install_github() runs into on shared CI runners.
+remotes::install_url("https://github.com/almahmoud/BiocJobs/archive/HEAD.tar.gz",
+                     upgrade = "never")
 remotes::install_local(path, dependencies = TRUE, upgrade = "never")
 
 package <- read.dcf(file.path(path, "DESCRIPTION"))[1L, "Package"]
