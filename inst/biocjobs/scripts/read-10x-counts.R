@@ -42,6 +42,8 @@ sce <- DropletUtils::read10xCounts(
 
 ## ---- outputs ------------------------------------------------------------
 
+print(list.files(dirname(params$outfile)))
+
 scle <- as(sce, "SingleCellLoomExperiment")
 BiocIO::export(object = scle, con = params$outfile, format = "loom")
 
