@@ -37,7 +37,8 @@ Suggests:
     BiocStyle,
     rmarkdown,
     jsonlite,
-    DropletTestFiles
+    DropletTestFiles,
+    LoomExperiment
 biocViews: 
     ImmunoOncology,
     SingleCell,
