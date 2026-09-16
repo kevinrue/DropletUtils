@@ -44,8 +44,8 @@ sce <- DropletUtils::read10xCounts(
 
 scle <- as(sce, "SingleCellLoomExperiment")
 
-if (file.exists(galaxy_output)) {
-  file.remove(galaxy_output)
+if (file.exists(params$outfile)) {
+  file.remove(params$outfile)
 }
 BiocIO::export(object = scle, con = params$outfile, format = "loom")
 
