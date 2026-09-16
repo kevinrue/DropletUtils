@@ -36,7 +36,7 @@ invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_inp
 sce <- DropletUtils::read10xCounts(
   samples = dropletutils_input_dir,
   sample.names = params$sample_name,
-  type = "mtx"
+  type = "sparse"
 )
 
 ## ---- outputs ------------------------------------------------------------
