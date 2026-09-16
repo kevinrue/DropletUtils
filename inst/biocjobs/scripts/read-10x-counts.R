@@ -9,6 +9,7 @@
 
 params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 
+suppressPackageStartupMessages(library(BiocIO))
 suppressPackageStartupMessages(library(DropletUtils))
 suppressPackageStartupMessages(library(LoomExperiment))
 
@@ -42,7 +43,7 @@ sce <- DropletUtils::read10xCounts(
 ## ---- outputs ------------------------------------------------------------
 
 scle <- as(sce, "SingleCellLoomExperiment")
-export(scle, params$outfile)
+BiocIO::export(scle, params$outfile)
 
 ## Provenance to the job log.
 message(paste(utils::capture.output(utils::sessionInfo()), collapse = "\n"))

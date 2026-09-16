@@ -31,6 +31,7 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")'
     <test>
       <param name="mtx_file" value="matrix.mtx" ftype="mtx"/>
       <param name="barcodes_file" value="barcodes.tsv" ftype="tabular"/>
+      <param name="genes_file" value="genes.tsv" ftype="tabular"/>
       <param name="sample_name" value="sample_name"/>
       <output name="outfile" file="scle.loom" compare="sim_size" delta="3000"/>
     </test>

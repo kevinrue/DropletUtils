@@ -67,7 +67,7 @@ tests:
   - inputs:
       mtx_file: test-data/matrix.mtx
       barcodes_file: test-data/barcodes.tsv
-      genes_files: test-data/genes.tsv
+      genes_file: test-data/genes.tsv
     options:
       sample_name: "sample_name"
     outputs:
