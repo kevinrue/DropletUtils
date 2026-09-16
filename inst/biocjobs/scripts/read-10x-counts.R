@@ -22,8 +22,7 @@ tmpdir <- tempdir()
 stopifnot(file.exists(params$mtx_file))
 stopifnot(file.exists(params$barcodes_file))
 stopifnot(file.exists(params$genes_file))
-# no check on params$sample_name?
-stopifnot(!file.exists(params$outfile))
+# any check on params$sample_name? character vector of length 1?
 
 dropletutils_input_dir <- file.path(tmpdir, "tenx_input_dir")
 dir.create(dropletutils_input_dir)
