@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 ARG BIOCONDUCTOR_TAG=devel
-FROM ghcr.io/bioconductor/bioconductor:${BIOCONDUCTOR_TAG}
+FROM ghcr.io/bioconductor/r-ver:${BIOCONDUCTOR_TAG}
 
 # The checkout is bind-mounted rather than copied, so none of the source ends
 # up in an image layer.
