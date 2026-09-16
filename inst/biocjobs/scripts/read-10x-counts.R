@@ -26,10 +26,10 @@ stopifnot(file.exists(params$genes_file))
 
 dropletutils_input_dir <- file.path(tmpdir, "tenx_input_dir")
 dir.create(dropletutils_input_dir)
-
-invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_input_dir)))
-invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_input_dir)))
-invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_input_dir)))
+stopifnot(dir.exists(dropletutils_input_dir))
+invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_input_dir, "matrix.mtx")))
+invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_input_dir, "barcodes.tsv")))
+invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_input_dir, "genes.tsv")))
 
 ## ---- task ---------------------------------------------------------------
 
