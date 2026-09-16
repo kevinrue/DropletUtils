@@ -16,6 +16,7 @@ suppressPackageStartupMessages(library(LoomExperiment))
 ## ---- inputs -------------------------------------------------------------
 
 tmpdir <- tempdir()
+stopifnot(dir.exists(tmpdir))
 
 ### process test inputs
 
@@ -42,7 +43,7 @@ sce <- DropletUtils::read10xCounts(
 ## ---- outputs ------------------------------------------------------------
 
 scle <- as(sce, "SingleCellLoomExperiment")
-BiocIO::export(scle, params$outfile)
+BiocIO::export(object = scle, con = params$outfile, format = "loom")
 
 ## Provenance to the job log.
 message(paste(utils::capture.output(utils::sessionInfo()), collapse = "\n"))
