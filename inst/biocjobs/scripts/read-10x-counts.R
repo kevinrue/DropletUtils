@@ -15,9 +15,6 @@ suppressPackageStartupMessages(library(LoomExperiment))
 
 ## ---- inputs -------------------------------------------------------------
 
-tmpdir <- tempdir()
-stopifnot(dir.exists(tmpdir))
-
 ### process test inputs
 
 stopifnot(file.exists(params$mtx_file))
@@ -25,7 +22,7 @@ stopifnot(file.exists(params$barcodes_file))
 stopifnot(file.exists(params$genes_file))
 # any check on params$sample_name? character vector of length 1?
 
-dropletutils_input_dir <- file.path(tmpdir, "tenx_input_dir")
+dropletutils_input_dir <- "tenx_input_dir"
 dir.create(dropletutils_input_dir)
 stopifnot(dir.exists(dropletutils_input_dir))
 invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_input_dir, "matrix.mtx")))
@@ -48,6 +45,8 @@ if (file.exists(params$outfile)) {
   file.remove(params$outfile)
 }
 BiocIO::export(object = scle, con = params$outfile, format = "loom")
+
+# optional: remove dropletutils_input_dir (workflow manager should remove job working directory)
 
 ## Provenance to the job log.
 message(paste(utils::capture.output(utils::sessionInfo()), collapse = "\n"))
