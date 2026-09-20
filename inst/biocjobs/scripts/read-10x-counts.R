@@ -17,19 +17,21 @@ suppressPackageStartupMessages(library(LoomExperiment))
 
 ### process test inputs
 
-stopifnot(file.exists(params$mtx_file))
-stopifnot(file.exists(params$barcodes_file))
-stopifnot(file.exists(params$genes_file))
-# any check on params$sample_name? character vector of length 1?
-
 if (identical(params$type, "mtx")) {
+  # check input files exist
+  stopifnot(file.exists(params$mtx_file))
+  stopifnot(file.exists(params$barcodes_file))
+  stopifnot(file.exists(params$genes_file))
+  # make sure they are all stored in the same directory with the expected names
   dropletutils_read10x_input_samples <- "tenx_input_dir"
   dir.create(dropletutils_read10x_input_samples)
   stopifnot(dir.exists(dropletutils_read10x_input_samples))
   invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_read10x_input_samples, "matrix.mtx")))
   invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_read10x_input_samples, "barcodes.tsv")))
-  invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_read10x_input_samples, "genes.tsv")))
+  invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_read10x_input_samples, "features.tsv")))
 } else if (identical(params$type, "hdf5")) {
+  # check input files exist
+  stopifnot(file.exists(params$hdf5_file))
   dropletutils_read10x_input_samples <- params$hdf5_file
 }
 
