@@ -35,7 +35,11 @@ inputs:
       Tab-separated file describing the features represented by rows of the
       count matrix. Contains the feature ID, feature name, and feature type,
       such as Gene Expression.
-      
+  - name: hdf5_file
+    format: h5
+    label: HDF5 file
+    help: >
+      HDF5 file containing counts data in the 10X sparse HDF5 format.
 
 outputs:
   - name: outfile
@@ -44,10 +48,17 @@ outputs:
     help: >
       Loom file exported from a SingleCellLoomExperiment object.
 
-# params <- list(
-#     sample_name = "sample_name",
-# )
 options:
+  - name: type
+    type: string
+    required: true
+    choices: [mtx, hdf5]
+    default: mtx
+    label: Input type
+    help: >
+      Type of input files.
+      If type is "mtx", three input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv).
+      If type is "hdf5", one input file is required; a 10X sparse HDF5 (h5).
   - name: sample_name
     type: string
     required: true
@@ -71,7 +82,18 @@ tests:
       barcodes_file: test-data/barcodes.tsv
       genes_file: test-data/genes.tsv
     options:
-      sample_name: "sample_name"
+      type: mtx
+      sample_name: sample_name
+    outputs:
+      outfile:
+        file: test-data/scle.loom
+        compare: sim_size
+        delta: 3000
+  - inputs:
+      hdf5_file: test-data/scle.h5
+    options:
+      type: hdf5
+      sample_name: sample_name
     outputs:
       outfile:
         file: test-data/scle.loom
