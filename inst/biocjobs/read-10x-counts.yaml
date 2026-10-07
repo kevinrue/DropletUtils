@@ -19,10 +19,10 @@ container: ghcr.io/kevinrue/dropletutils:devel
 inputs:
   - name: mtx_file
     required: false
-    format: mtx
+    format: txt
     label: Raw count matrix
     help: >
-      Matrix of integer UMI counts in Matrix Market File Format.
+      Matrix of integer UMI counts in Matrix Market File Format (.mtx).
   - name: barcodes_file
     required: false
     format: tsv
@@ -61,7 +61,7 @@ options:
     label: Input type
     help: >
       Type of input files.
-      If type is "mtx", three input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv).
+      If type is "mtx", three (possibly gzipped) input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv).
       If type is "hdf5", one input file is required; a 10X sparse HDF5 (h5).
   - name: sample_name
     type: string
