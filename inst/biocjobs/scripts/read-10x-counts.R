@@ -52,6 +52,10 @@ sce <- DropletUtils::read10xCounts(
 
 ## ---- outputs ------------------------------------------------------------
 
+if (file.exists(params$outfile)) {
+  file.remove(params$outfile)
+}
+
 anndataR::write_h5ad(
   object = sce,
   compression = "gzip",
