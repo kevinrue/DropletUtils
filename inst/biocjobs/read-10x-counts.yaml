@@ -94,7 +94,7 @@ tests:
         compare: sim_size
         delta: 3000
   - inputs:
-      hdf5_file: test-data/scle.h5
+      hdf5_file: test-data/sce.h5
     options:
       type: hdf5
       sample_name: my_sample
