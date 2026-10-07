@@ -19,14 +19,12 @@ container: ghcr.io/kevinrue/dropletutils:devel
 inputs:
   - name: mtx_file
     required: false
-    #required: if (params.type == "mtx")
     format: mtx
     label: Raw count matrix
     help: >
       Matrix of integer UMI counts in Matrix Market File Format.
   - name: barcodes_file
     required: false
-    #required: if (params.type == "mtx")
     format: tsv
     label: Cell barcodes
     help: >
@@ -34,7 +32,6 @@ inputs:
       represented by columns of the count matrix, with one barcode per line.
   - name: genes_file
     required: false
-    #required: if (params.type == "mtx")
     format: tsv
     label: Feature annotations
     help: >
@@ -43,7 +40,6 @@ inputs:
       such as Gene Expression.
   - name: hdf5_file
     required: false
-    #required: if (params.type == "hdf5")
     format: h5
     label: HDF5 file
     help: >
