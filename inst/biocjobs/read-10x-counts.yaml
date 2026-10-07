@@ -90,7 +90,7 @@ tests:
       sample_name: my_sample
     outputs:
       outfile:
-        file: test-data/scle.h5ad
+        file: test-data/sce.h5ad
         compare: sim_size
         delta: 3000
   - inputs:
@@ -100,6 +100,6 @@ tests:
       sample_name: my_sample
     outputs:
       outfile:
-        file: test-data/scle.h5ad
+        file: test-data/sce.h5ad
         compare: sim_size
         delta: 3000
