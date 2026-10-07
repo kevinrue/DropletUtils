@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name", type = "mtx", outfile = "scle.loom"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name", type = "mtx", outfile = "sce.h5ad"))
 
 params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 
@@ -48,7 +48,7 @@ sce <- DropletUtils::read10xCounts(
 ## ---- outputs ------------------------------------------------------------
 
 anndataR::write_h5ad(
-  object = adata,
+  object = sce,
   compression = "gzip",
   path = params$outfile
 )
