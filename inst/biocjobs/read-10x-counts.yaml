@@ -12,7 +12,7 @@ description: >
 version: "1.0.0"
 license: MIT
 script: scripts/read-10x-counts.R
-depends: [LoomExperiment]
+depends: [anndataR]
 
 container: ghcr.io/kevinrue/dropletutils:devel
 
@@ -47,10 +47,10 @@ inputs:
 
 outputs:
   - name: outfile
-    format: loom
-    label: Loom file
+    format: h5
+    label: h5ad file
     help: >
-      Loom file exported from a SingleCellLoomExperiment object.
+      h5ad file exported from the SingleCellExperiment object.
 
 options:
   - name: type
@@ -87,19 +87,19 @@ tests:
       genes_file: test-data/genes.tsv
     options:
       type: mtx
-      sample_name: sample_name
+      sample_name: my_sample
     outputs:
       outfile:
-        file: test-data/scle.loom
+        file: test-data/scle.h5ad
         compare: sim_size
         delta: 3000
   - inputs:
       hdf5_file: test-data/scle.h5
     options:
       type: hdf5
-      sample_name: sample_name
+      sample_name: my_sample
     outputs:
       outfile:
-        file: test-data/scle.loom
+        file: test-data/scle.h5ad
         compare: sim_size
         delta: 3000

@@ -11,7 +11,7 @@ params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 
 suppressPackageStartupMessages(library(BiocIO))
 suppressPackageStartupMessages(library(DropletUtils))
-suppressPackageStartupMessages(library(LoomExperiment))
+suppressPackageStartupMessages(library(anndataR))
 
 ## ---- inputs -------------------------------------------------------------
 
@@ -47,14 +47,11 @@ sce <- DropletUtils::read10xCounts(
 
 ## ---- outputs ------------------------------------------------------------
 
-scle <- as(sce, "SingleCellLoomExperiment")
-
-if (file.exists(params$outfile)) {
-  file.remove(params$outfile)
-}
-BiocIO::export(object = scle, con = params$outfile, format = "loom")
-
-# optional: remove dropletutils_input_dir (workflow manager should remove job working directory)
+anndataR::write_h5ad(
+  object = adata,
+  compression = "gzip",
+  path = params$outfile
+)
 
 ## Provenance to the job log.
 message(paste(utils::capture.output(utils::sessionInfo()), collapse = "\n"))
