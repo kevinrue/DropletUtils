@@ -19,20 +19,20 @@ container: ghcr.io/kevinrue/dropletutils:devel
 inputs:
   - name: mtx_file
     required: false
-    format: mtx
+    format: mtx.gz
     label: Raw count matrix
     help: >
       Matrix of integer UMI counts in Matrix Market File Format.
   - name: barcodes_file
     required: false
-    format: tsv
+    format: tsv.gz
     label: Cell barcodes
     help: >
       Single-column tab-separated file containing the barcode sequences
       represented by columns of the count matrix, with one barcode per line.
-  - name: genes_file
+  - name: features_file
     required: false
-    format: tsv
+    format: tsv.gz
     label: Feature annotations
     help: >
       Tab-separated file describing the features represented by rows of the
@@ -82,9 +82,9 @@ citations:
 
 tests:
   - inputs:
-      mtx_file: test-data/matrix.mtx
-      barcodes_file: test-data/barcodes.tsv
-      genes_file: test-data/genes.tsv
+      mtx_file: test-data/matrix.mtx.gz
+      barcodes_file: test-data/barcodes.tsv.gz
+      features_file: test-data/features.tsv.gz
     options:
       type: mtx
       sample_name: my_sample

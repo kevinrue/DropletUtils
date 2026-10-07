@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name", type = "mtx", outfile = "sce.h5ad"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx.gz", barcodes_file = "test-data/barcodes.tsv.gz", features_file = "test-data/features.tsv.gz", sample_name = "sample_name", type = "mtx", outfile = "sce.h5ad"))
 ## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(hdf5_file = "test-data/sce.h5", sample_name = "sample_name", type = "hdf5", outfile = "sce.h5ad"))
 
 ## Validation command (Bash)
@@ -27,7 +27,7 @@ if (identical(params$type, "mtx")) {
   # sanity check: input files exist
   stopifnot(file.exists(params$mtx_file))
   stopifnot(file.exists(params$barcodes_file))
-  stopifnot(file.exists(params$genes_file))
+  stopifnot(file.exists(params$features_file))
   # create symlinks to all input files in the same directory with the expected names
   # [Galaxy]: this is necessary for testing, as test files are named '*.dat'
   dropletutils_read10x_input_samples <- "tenx_input_dir"
@@ -35,7 +35,7 @@ if (identical(params$type, "mtx")) {
   stopifnot(dir.exists(dropletutils_read10x_input_samples))
   invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_read10x_input_samples, "matrix.mtx")))
   invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_read10x_input_samples, "barcodes.tsv")))
-  invisible(file.symlink(from = params$genes_file, to = file.path(dropletutils_read10x_input_samples, "features.tsv")))
+  invisible(file.symlink(from = params$features_file, to = file.path(dropletutils_read10x_input_samples, "features.tsv")))
 } else if (identical(params$type, "hdf5")) {
   # sanity check: input files exist
   stopifnot(file.exists(params$hdf5_file))
