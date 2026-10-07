@@ -6,6 +6,7 @@
 
 ## Test command (R)
 ## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name", type = "mtx", outfile = "sce.h5ad"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(hdf5_file = "test-data/sce.h5", sample_name = "sample_name", type = "hdf5", outfile = "sce.h5ad"))
 
 ## Validation command (Bash)
 ## Rscript -e 'BiocJobs::biocjobsCLI()' validate .
@@ -49,6 +50,10 @@ sce <- DropletUtils::read10xCounts(
   type = params$type,
   col.names = TRUE
 )
+
+if (identical(params$type, "hdf5")) {
+  counts(sce) <- as(counts(sce), "dgCMatrix")
+}
 
 ## ---- outputs ------------------------------------------------------------
 
