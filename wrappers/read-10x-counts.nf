@@ -14,12 +14,15 @@ process READ_10X_COUNTS {
     // mtx_file: Raw count matrix (mtx)
     // barcodes_file: Cell barcodes (tsv)
     // genes_file: Feature annotations (tsv)
-    tuple val(meta), path(mtx_file), path(barcodes_file), path(genes_file)
+    // hdf5_file: HDF5 file (h5)
+    tuple val(meta), path(mtx_file), path(barcodes_file), path(genes_file), path(hdf5_file)
+    // Input type (string; default in spec: mtx; required)
+    val type
     // Sample name (string; required)
     val sample_name
 
     output:
-    tuple val(meta), path('outfile.loom'), emit: outfile
+    tuple val(meta), path('outfile.h5'), emit: outfile
 
     script:
     """
@@ -27,12 +30,14 @@ process READ_10X_COUNTS {
         --mtx_file '${(mtx_file as String).replace("'", "'\\''")}' \\
         --barcodes_file '${(barcodes_file as String).replace("'", "'\\''")}' \\
         --genes_file '${(genes_file as String).replace("'", "'\\''")}' \\
+        --hdf5_file '${(hdf5_file as String).replace("'", "'\\''")}' \\
+        --type '${(type as String).replace("'", "'\\''")}' \\
         --sample_name '${(sample_name as String).replace("'", "'\\''")}' \\
-        --outfile 'outfile.loom'
+        --outfile 'outfile.h5'
     """
 
     stub:
     """
-    touch 'outfile.loom'
+    touch 'outfile.h5'
     """
 }

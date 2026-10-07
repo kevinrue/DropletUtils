@@ -7,6 +7,12 @@
 ## Test command (R)
 ## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts.yaml"), params = list(mtx_file = "test-data/matrix.mtx", barcodes_file = "test-data/barcodes.tsv", genes_file = "test-data/genes.tsv", sample_name = "sample_name", type = "mtx", outfile = "sce.h5ad"))
 
+## Validation command (Bash)
+## Rscript -e 'BiocJobs::biocjobsCLI()' validate .
+
+# Rscript -e 'BiocJobs::biocjobsCLI()' galaxy   . read-10x-counts --out wrappers/read-10x-counts.xml
+# Rscript -e 'BiocJobs::biocjobsCLI()' nextflow . read-10x-counts --out wrappers/read-10x-counts.nf
+
 params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 
 suppressPackageStartupMessages(library(BiocIO))
