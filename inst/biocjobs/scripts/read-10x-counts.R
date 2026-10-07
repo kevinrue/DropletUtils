@@ -15,7 +15,6 @@
 
 params <- BiocJobs::jobParams("DropletUtils", "read-10x-counts")
 
-suppressPackageStartupMessages(library(BiocIO))
 suppressPackageStartupMessages(library(DropletUtils))
 suppressPackageStartupMessages(library(anndataR))
 
