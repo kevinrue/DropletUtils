@@ -38,8 +38,7 @@ Suggests:
     rmarkdown,
     jsonlite,
     DropletTestFiles,
-    anndataR,
-    almahmoud/BiocJobs
+    anndataR
 biocViews: 
     ImmunoOncology,
     SingleCell,
