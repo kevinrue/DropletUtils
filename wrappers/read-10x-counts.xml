@@ -16,8 +16,8 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")'
 #if $barcodes_file
 --barcodes_file '$barcodes_file'
 #end if
-#if $genes_file
---genes_file '$genes_file'
+#if $features_file
+--features_file '$features_file'
 #end if
 #if $hdf5_file
 --hdf5_file '$hdf5_file'
@@ -27,11 +27,11 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")'
 --outfile '$outfile'
 ]]></command>
   <inputs>
-    <param name="mtx_file" type="data" format="mtx" label="Raw count matrix" help="Matrix of integer UMI counts in Matrix Market File Format.&#10;" optional="true"/>
+    <param name="mtx_file" type="data" format="txt" label="Raw count matrix" help="Matrix of integer UMI counts in Matrix Market File Format (.mtx).&#10;" optional="true"/>
     <param name="barcodes_file" type="data" format="tabular" label="Cell barcodes" help="Single-column tab-separated file containing the barcode sequences represented by columns of the count matrix, with one barcode per line.&#10;" optional="true"/>
-    <param name="genes_file" type="data" format="tabular" label="Feature annotations" help="Tab-separated file describing the features represented by rows of the count matrix. Contains the feature ID, feature name, and feature type, such as Gene Expression.&#10;" optional="true"/>
+    <param name="features_file" type="data" format="tabular" label="Feature annotations" help="Tab-separated file describing the features represented by rows of the count matrix. Contains the feature ID, feature name, and feature type, such as Gene Expression.&#10;" optional="true"/>
     <param name="hdf5_file" type="data" format="h5" label="HDF5 file" help="HDF5 file containing counts data in the 10X sparse HDF5 format.&#10;" optional="true"/>
-    <param name="type" type="text" value="mtx" label="Input type" help="Type of input files. If type is &quot;mtx&quot;, three input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv). If type is &quot;hdf5&quot;, one input file is required; a 10X sparse HDF5 (h5).&#10;">
+    <param name="type" type="text" value="mtx" label="Input type" help="Type of input files. If type is &quot;mtx&quot;, three (possibly gzipped) input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv). If type is &quot;hdf5&quot;, one input file is required; a 10X sparse HDF5 (h5).&#10;">
       <validator type="empty_field"/>
     </param>
     <param name="sample_name" type="text" value="" label="Sample name" help="Sample name stored in the cell metadata. Particularly useful to track the sample of origin for each cell after merging multiple datasets.&#10;">
@@ -43,15 +43,15 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")'
   </outputs>
   <tests>
     <test>
-      <param name="mtx_file" value="matrix.mtx" ftype="mtx"/>
-      <param name="barcodes_file" value="barcodes.tsv" ftype="tabular"/>
-      <param name="genes_file" value="genes.tsv" ftype="tabular"/>
+      <param name="mtx_file" value="matrix.mtx.gz" ftype="txt"/>
+      <param name="barcodes_file" value="barcodes.tsv.gz" ftype="tabular"/>
+      <param name="features_file" value="features.tsv.gz" ftype="tabular"/>
       <param name="type" value="mtx"/>
       <param name="sample_name" value="my_sample"/>
       <output name="outfile" file="sce.h5ad" compare="sim_size" delta="3000"/>
     </test>
     <test>
-      <param name="hdf5_file" value="scle.h5" ftype="h5"/>
+      <param name="hdf5_file" value="sce.h5" ftype="h5"/>
       <param name="type" value="hdf5"/>
       <param name="sample_name" value="my_sample"/>
       <output name="outfile" file="sce.h5ad" compare="sim_size" delta="3000"/>
@@ -65,7 +65,7 @@ Creates a SingleCellExperiment from the CellRanger output files for 10X Genomics
 
 **Inputs**
 
-- *Raw count matrix* (mtx): Matrix of integer UMI counts in Matrix Market File Format.
+- *Raw count matrix* (txt): Matrix of integer UMI counts in Matrix Market File Format (.mtx).
 
 - *Cell barcodes* (tsv): Single-column tab-separated file containing the barcode sequences represented by columns of the count matrix, with one barcode per line.
 

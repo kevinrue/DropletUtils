@@ -11,11 +11,11 @@ process READ_10X_COUNTS {
 
     input:
     // meta: map identifying the unit of work; meta.id names the tag
-    // mtx_file: Raw count matrix (mtx)
+    // mtx_file: Raw count matrix (txt)
     // barcodes_file: Cell barcodes (tsv)
-    // genes_file: Feature annotations (tsv)
+    // features_file: Feature annotations (tsv)
     // hdf5_file: HDF5 file (h5)
-    tuple val(meta), path(mtx_file), path(barcodes_file), path(genes_file), path(hdf5_file)
+    tuple val(meta), path(mtx_file), path(barcodes_file), path(features_file), path(hdf5_file)
     // Input type (string; default in spec: mtx; required)
     val type
     // Sample name (string; required)
@@ -29,7 +29,7 @@ process READ_10X_COUNTS {
     Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts")' \\
         --mtx_file '${(mtx_file as String).replace("'", "'\\''")}' \\
         --barcodes_file '${(barcodes_file as String).replace("'", "'\\''")}' \\
-        --genes_file '${(genes_file as String).replace("'", "'\\''")}' \\
+        --features_file '${(features_file as String).replace("'", "'\\''")}' \\
         --hdf5_file '${(hdf5_file as String).replace("'", "'\\''")}' \\
         --type '${(type as String).replace("'", "'\\''")}' \\
         --sample_name '${(sample_name as String).replace("'", "'\\''")}' \\
