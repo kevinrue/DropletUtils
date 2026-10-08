@@ -33,9 +33,9 @@ if (identical(params$type, "mtx")) {
   dropletutils_read10x_input_samples <- "tenx_input_dir"
   dir.create(dropletutils_read10x_input_samples)
   stopifnot(dir.exists(dropletutils_read10x_input_samples))
-  invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_read10x_input_samples, "matrix.mtx")))
-  invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_read10x_input_samples, "barcodes.tsv")))
-  invisible(file.symlink(from = params$features_file, to = file.path(dropletutils_read10x_input_samples, "features.tsv")))
+  invisible(file.symlink(from = params$mtx_file, to = file.path(dropletutils_read10x_input_samples, "matrix.mtx.gz")))
+  invisible(file.symlink(from = params$barcodes_file, to = file.path(dropletutils_read10x_input_samples, "barcodes.tsv.gz")))
+  invisible(file.symlink(from = params$features_file, to = file.path(dropletutils_read10x_input_samples, "features.tsv.gz")))
 } else if (identical(params$type, "hdf5")) {
   # sanity check: input files exist
   stopifnot(file.exists(params$hdf5_file))
