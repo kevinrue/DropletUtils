@@ -1,68 +1,52 @@
 # BiocJobs job specification.
-# This file, together with scripts/read-10x-counts.R, is all
+# This file, together with scripts/read-10x-counts-mtx.R, is all
 # a package maintainer adds to make this analysis dispatchable.
 biocjobs: "1.0"
-name: read-10x-counts
+name: read-10x-counts-mtx
 package: DropletUtils
-title: Read 10X Counts
-tagline: import single-cell counts from 10X files
+title: Read 10X Counts (MTX)
+tagline: import single-cell counts from Matrix Market file format
 description: >
-  Creates a SingleCellExperiment from the CellRanger output files for
-  10X Genomics data.
+  Creates a SingleCellExperiment from the CellRanger Matrix Market
+  file format files for 10X Genomics data, saved in H5AD format.
 version: "1.0.0"
 license: MIT
-script: scripts/read-10x-counts.R
+script: scripts/read-10x-counts-mtx.R
 depends: [anndataR]
 
 container: ghcr.io/kevinrue/dropletutils:devel
 
 inputs:
   - name: mtx_file
-    required: false
+    required: true
     format: txt
     label: Raw count matrix
     help: >
-      Matrix of integer UMI counts in Matrix Market File Format (.mtx).
+      Matrix of integer UMI counts in Matrix Market File format (.mtx.gz).
   - name: barcodes_file
-    required: false
+    required: true
     format: tsv
     label: Cell barcodes
     help: >
-      Single-column tab-separated file containing the barcode sequences
+      Single-column tab-separated file (.tsv.gz) containing the barcode sequences
       represented by columns of the count matrix, with one barcode per line.
   - name: features_file
-    required: false
+    required: true
     format: tsv
     label: Feature annotations
     help: >
-      Tab-separated file describing the features represented by rows of the
+      Tab-separated file (.tsv.gz) describing the features represented by rows of the
       count matrix. Contains the feature ID, feature name, and feature type,
       such as Gene Expression.
-  - name: hdf5_file
-    required: false
-    format: h5
-    label: HDF5 file
-    help: >
-      HDF5 file containing counts data in the 10X sparse HDF5 format.
 
 outputs:
   - name: outfile
     format: h5
-    label: h5ad file
+    label: H5AD file
     help: >
-      h5ad file exported from the SingleCellExperiment object.
+      H5AD file exported from the SingleCellExperiment object using anndataR.
 
 options:
-  - name: type
-    type: string
-    required: true
-    choices: [mtx, hdf5]
-    default: mtx
-    label: Input type
-    help: >
-      Type of input files.
-      If type is "mtx", three (possibly gzipped) input files are required; a MatrixMarket text file (mtx), a barcodes file (tsv), and features file (tsv).
-      If type is "hdf5", one input file is required; a 10X sparse HDF5 (h5).
   - name: sample_name
     type: string
     required: true
@@ -86,17 +70,6 @@ tests:
       barcodes_file: test-data/barcodes.tsv.gz
       features_file: test-data/features.tsv.gz
     options:
-      type: mtx
-      sample_name: my_sample
-    outputs:
-      outfile:
-        file: test-data/sce.h5ad
-        compare: sim_size
-        delta: 3000
-  - inputs:
-      hdf5_file: test-data/sce.h5
-    options:
-      type: hdf5
       sample_name: my_sample
     outputs:
       outfile:

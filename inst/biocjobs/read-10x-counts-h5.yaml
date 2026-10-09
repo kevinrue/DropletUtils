@@ -1,0 +1,61 @@
+# BiocJobs job specification.
+# This file, together with scripts/read-10x-counts-h5.R, is all
+# a package maintainer adds to make this analysis dispatchable.
+biocjobs: "1.0"
+name: read-10x-counts-h5
+package: DropletUtils
+title: Read 10X Counts (HDF5)
+tagline: import single-cell counts from a 10X HDF5 file
+description: >
+  Creates a SingleCellExperiment from the CellRanger HDF5
+  file format for 10X Genomics data, saved in H5AD format.
+version: "1.0.0"
+license: MIT
+script: scripts/read-10x-counts-h5.R
+depends: [anndataR]
+
+container: ghcr.io/kevinrue/dropletutils:devel
+
+inputs:
+  - name: hdf5_file
+    required: true
+    format: h5
+    label: HDF5 file
+    help: >
+      HDF5 file containing counts data in the 10X sparse HDF5 format.
+
+outputs:
+  - name: outfile
+    format: h5ad
+    label: H5AD file
+    help: >
+      H5AD file exported from the SingleCellExperiment object using anndataR.
+
+options:
+  - name: sample_name
+    type: string
+    required: true
+    label: Sample name
+    help: >
+      Sample name stored in the cell metadata.
+      Particularly useful to track the sample of origin for each cell
+      after merging multiple datasets.
+
+resources:
+  cpus: 1
+  memory_gb: 4
+  disk_gb: 10
+
+citations:
+  - doi: 10.18129/B9.bioc.DropletUtils   # Bioconductor landing page
+
+tests:
+  - inputs:
+      hdf5_file: test-data/sce.h5
+    options:
+      sample_name: my_sample
+    outputs:
+      outfile:
+        file: test-data/sce.h5ad
+        compare: sim_size
+        delta: 3000
