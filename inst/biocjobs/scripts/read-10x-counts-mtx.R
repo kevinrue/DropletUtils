@@ -50,7 +50,7 @@ invisible(file.symlink(
 sce <- DropletUtils::read10xCounts(
   samples = dropletutils_read10x_input_samples,
   sample.names = params$sample_name,
-  type = params$type,
+  type = "mtx",
   col.names = TRUE
 )
 

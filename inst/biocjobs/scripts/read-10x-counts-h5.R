@@ -31,7 +31,7 @@ dropletutils_read10x_input_samples <- params$hdf5_file
 sce <- DropletUtils::read10xCounts(
   samples = dropletutils_read10x_input_samples,
   sample.names = params$sample_name,
-  type = params$type,
+  type = "hdf5",
   col.names = TRUE
 )
 
