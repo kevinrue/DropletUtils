@@ -51,7 +51,7 @@ citations:
 
 tests:
   - inputs:
-      hdf5_file: test-data/sce.h5
+      hdf5_file: test-data/matrix.h5
     options:
       sample_name: my_sample
     outputs:
