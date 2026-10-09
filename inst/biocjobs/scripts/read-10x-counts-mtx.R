@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts-mtx.yaml"), params = list(mtx_file = "test-data/matrix.mtx.gz", barcodes_file = "test-data/barcodes.tsv.gz", features_file = "test-data/features.tsv.gz", sample_name = "sample_name", outfile = "sce-mtx.h5ad"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts-mtx.yaml"), params = list(matrix_file = "test-data/matrix.mtx.gz", barcodes_file = "test-data/barcodes.tsv.gz", features_file = "test-data/features.tsv.gz", sample_name = "sample_name", outfile = "sce-mtx.h5ad"))
 
 ## Validation command (Bash)
 ## Rscript -e 'BiocJobs::biocjobsCLI()' validate .
@@ -23,7 +23,7 @@ suppressPackageStartupMessages(library(anndataR))
 ### process test inputs
 
 # sanity check: input files exist
-stopifnot(file.exists(params$mtx_file))
+stopifnot(file.exists(params$matrix_file))
 stopifnot(file.exists(params$barcodes_file))
 stopifnot(file.exists(params$features_file))
 
@@ -33,7 +33,7 @@ dropletutils_read10x_input_samples <- "tenx_input_dir"
 dir.create(dropletutils_read10x_input_samples)
 stopifnot(dir.exists(dropletutils_read10x_input_samples))
 invisible(file.symlink(
-  from = normalizePath(params$mtx_file),
+  from = normalizePath(params$matrix_file),
   to = file.path(dropletutils_read10x_input_samples, "matrix.mtx.gz"))
 )
 invisible(file.symlink(

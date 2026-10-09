@@ -17,7 +17,7 @@ depends: [anndataR]
 container: ghcr.io/kevinrue/dropletutils:devel
 
 inputs:
-  - name: hdf5_file
+  - name: infile
     required: true
     format: h5
     label: HDF5 file
@@ -51,7 +51,7 @@ citations:
 
 tests:
   - inputs:
-      hdf5_file: test-data/matrix.h5
+      infile: test-data/matrix.h5
     options:
       sample_name: my_sample
     outputs:

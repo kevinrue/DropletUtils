@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts-h5.yaml"), params = list(hdf5_file = "test-data/matrix.h5", sample_name = "sample_name", outfile = "sce-h5.h5ad"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/read-10x-counts-h5.yaml"), params = list(infile = "test-data/matrix.h5", sample_name = "sample_name", outfile = "sce-h5.h5ad"))
 
 ## Validation command (Bash)
 ## Rscript -e 'BiocJobs::biocjobsCLI()' validate .
@@ -23,8 +23,8 @@ suppressPackageStartupMessages(library(anndataR))
 ### process test inputs
 
 # sanity check: input files exist
-stopifnot(file.exists(params$hdf5_file))
-dropletutils_read10x_input_samples <- params$hdf5_file
+stopifnot(file.exists(params$infile))
+dropletutils_read10x_input_samples <- params$infile
 
 ## ---- task ---------------------------------------------------------------
 

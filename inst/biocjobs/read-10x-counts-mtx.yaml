@@ -17,7 +17,7 @@ depends: [anndataR]
 container: ghcr.io/kevinrue/dropletutils:devel
 
 inputs:
-  - name: mtx_file
+  - name: matrix_file
     required: true
     format: txt
     label: Raw count matrix
@@ -66,7 +66,7 @@ citations:
 
 tests:
   - inputs:
-      mtx_file: test-data/matrix.mtx.gz
+      matrix_file: test-data/matrix.mtx.gz
       barcodes_file: test-data/barcodes.tsv.gz
       features_file: test-data/features.tsv.gz
     options:

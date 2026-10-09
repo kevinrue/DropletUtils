@@ -10,12 +10,12 @@
   </requirements>
   <command detect_errors="exit_code"><![CDATA[
 Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts-h5")'
---hdf5_file '$hdf5_file'
+--infile '$infile'
 --sample_name '$sample_name'
 --outfile '$outfile'
 ]]></command>
   <inputs>
-    <param name="hdf5_file" type="data" format="h5" label="HDF5 file" help="HDF5 file containing counts data in the 10X sparse HDF5 format.&#10;"/>
+    <param name="infile" type="data" format="h5" label="HDF5 file" help="HDF5 file containing counts data in the 10X sparse HDF5 format.&#10;"/>
     <param name="sample_name" type="text" value="" label="Sample name" help="Sample name stored in the cell metadata. Particularly useful to track the sample of origin for each cell after merging multiple datasets.&#10;">
       <validator type="empty_field"/>
     </param>
@@ -25,7 +25,7 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts-h5")'
   </outputs>
   <tests>
     <test>
-      <param name="hdf5_file" value="sce.h5" ftype="h5"/>
+      <param name="infile" value="matrix.h5" ftype="h5"/>
       <param name="sample_name" value="my_sample"/>
       <output name="outfile" file="sce.h5ad" compare="sim_size" delta="3000"/>
     </test>

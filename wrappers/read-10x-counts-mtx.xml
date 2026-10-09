@@ -10,14 +10,14 @@
   </requirements>
   <command detect_errors="exit_code"><![CDATA[
 Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts-mtx")'
---mtx_file '$mtx_file'
+--matrix_file '$matrix_file'
 --barcodes_file '$barcodes_file'
 --features_file '$features_file'
 --sample_name '$sample_name'
 --outfile '$outfile'
 ]]></command>
   <inputs>
-    <param name="mtx_file" type="data" format="txt" label="Raw count matrix" help="Matrix of integer UMI counts in Matrix Market File format (.mtx.gz).&#10;"/>
+    <param name="matrix_file" type="data" format="txt" label="Raw count matrix" help="Matrix of integer UMI counts in Matrix Market File format (.mtx.gz).&#10;"/>
     <param name="barcodes_file" type="data" format="tabular" label="Cell barcodes" help="Single-column tab-separated file (.tsv.gz) containing the barcode sequences represented by columns of the count matrix, with one barcode per line.&#10;"/>
     <param name="features_file" type="data" format="tabular" label="Feature annotations" help="Tab-separated file (.tsv.gz) describing the features represented by rows of the count matrix. Contains the feature ID, feature name, and feature type, such as Gene Expression.&#10;"/>
     <param name="sample_name" type="text" value="" label="Sample name" help="Sample name stored in the cell metadata. Particularly useful to track the sample of origin for each cell after merging multiple datasets.&#10;">
@@ -29,7 +29,7 @@ Rscript -e 'BiocJobs::execJob("DropletUtils", "read-10x-counts-mtx")'
   </outputs>
   <tests>
     <test>
-      <param name="mtx_file" value="matrix.mtx.gz" ftype="txt"/>
+      <param name="matrix_file" value="matrix.mtx.gz" ftype="txt"/>
       <param name="barcodes_file" value="barcodes.tsv.gz" ftype="tabular"/>
       <param name="features_file" value="features.tsv.gz" ftype="tabular"/>
       <param name="sample_name" value="my_sample"/>
