@@ -32,7 +32,8 @@ sce <- DropletUtils::read10xCounts(
   samples = dropletutils_read10x_input_samples,
   sample.names = params$sample_name,
   type = "hdf5",
-  col.names = TRUE
+  col.names = TRUE,
+  row.names = "symbol"
 )
 
 # Convert from TENxMatrix to avoid a row-column bug during anndataR::write_h5ad()

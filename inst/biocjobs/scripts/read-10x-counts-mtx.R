@@ -51,7 +51,8 @@ sce <- DropletUtils::read10xCounts(
   samples = dropletutils_read10x_input_samples,
   sample.names = params$sample_name,
   type = "mtx",
-  col.names = TRUE
+  col.names = TRUE,
+  row.names = "symbol"
 )
 
 ## ---- outputs ------------------------------------------------------------
