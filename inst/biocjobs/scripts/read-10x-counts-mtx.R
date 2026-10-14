@@ -60,7 +60,8 @@ sce <- DropletUtils::read10xCounts(
 anndataR::write_h5ad(
   object = sce,
   compression = "gzip",
-  path = params$outfile
+  path = params$outfile,
+  mode = "w"
 )
 
 ## Provenance to the job log.
